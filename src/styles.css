@@ -1,0 +1,29 @@
+.contador {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.contador p {
+    margin: 0 10px;
+}
+
+.contador button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.increment-button {
+    margin-right: 5px;
+}
+
+.decrement-button {
+    margin-left: 5px;
+}
