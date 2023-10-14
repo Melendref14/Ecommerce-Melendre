@@ -6,23 +6,17 @@ import '../styles.css';
 
 const ItemDetailContainer = () => {
     const { itemId } = useParams(); 
-    const { Ropa, Zapatos, Accesorios } = useProducts();
+    const products = useProducts();
 
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
-       const productInRopa = Ropa.find((p) => p.id === Number(itemId));
-       const productInZapatos = Zapatos.find((p) => p.id === Number(itemId));
-       const productInAccesorios = Accesorios.find((p) => p.id === Number(itemId));
+       const productToDisplay = products.find((p) => p.id === Number(itemId));
 
-       if (productInRopa) {
-        setProduct({ ...productInRopa, categoria: 'Ropa' });
-       } else if (productInZapatos) {
-        setProduct({ ...productInZapatos, categoria: 'Zapatos' });
-       } else if (productInAccesorios) {
-        setProduct({ ...productInAccesorios, categoria: 'Accesorios' });
+       if (productToDisplay) {
+        setProduct(productToDisplay);
        }
-    }, [itemId, Ropa, Zapatos, Accesorios]);
+    }, [itemId, products]);
 
     const [contador, setContador] = useState(1);
 
