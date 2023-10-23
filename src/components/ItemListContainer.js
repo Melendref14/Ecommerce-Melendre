@@ -1,4 +1,3 @@
-/* ItemListContainer */
 import React from "react";
 
 const ItemListContainer = ({ saludo }) => {

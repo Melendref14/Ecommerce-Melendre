@@ -1,34 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useProducts } from '../App';
+import { useParams } from 'react-router-dom'; 
+import { useProducts, useCart } from '../App'; 
 import '../styles.css';
-
+import ItemQuantitySelector from './ItemQuantitySelector';
 
 const ItemDetailContainer = () => {
-    const { itemId } = useParams(); 
+    const { itemId } = useParams();
     const products = useProducts();
+    const { cart, setCart } = useCart(); 
 
     const [product, setProduct] = useState(null);
+    const [contador, setContador] = useState(1);
 
     useEffect(() => {
-       const productToDisplay = products.find((p) => p.id === Number(itemId));
+        const productToDisplay = products.find((p) => p.id === Number(itemId));
 
-       if (productToDisplay) {
-        setProduct(productToDisplay);
-       }
+        if (productToDisplay) {
+            setProduct(productToDisplay);
+        }
     }, [itemId, products]);
-
-    const [contador, setContador] = useState(1);
 
     const aumentarContador = () => {
         setContador(contador + 1);
     };
 
-    const disminuidorContador = () => {
+    const disminuirContador = () => {
         if (contador > 1) {
             setContador(contador - 1);
         }
     };
+
+    const addToCart = () => {
+        if (product) {
+            const updatedCart = [...cart];
+    
+            const existingProductIndex = updatedCart.findIndex((item) => item.product.id === product.id);
+            if (existingProductIndex !== -1) {
+                updatedCart[existingProductIndex].quantity += contador;
+            } else {
+                updatedCart.push({ product, quantity: contador });
+            }
+    
+            setCart(updatedCart); 
+        }
+    };
+    
 
     return (
         <div className='container'>
@@ -39,13 +55,11 @@ const ItemDetailContainer = () => {
                         <p>{product.description}</p>
                         <p>Precio: {product.price}</p>
 
-                        <div className='contador'>
-                            <p>Cantidad: {contador}</p>
-                            <div className='botones-contador'>
-                                <button className='increment-button' onClick={aumentarContador}>+</button>
-                                <button className='decrement-button' onClick={disminuidorContador}>-</button>
-                            </div>
-                        </div>
+                        <ItemQuantitySelector contador={contador} aumentarContador={aumentarContador} disminuirContador={disminuirContador} />
+
+                        <button className='mt-4 btn btn-warning' onClick={addToCart}>
+                            Agregar al carrito
+                        </button>
                     </div>
                     <div className='col-md-6'>
                         <img

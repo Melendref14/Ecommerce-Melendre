@@ -1,9 +1,13 @@
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; 
-import NavBar from './components/NavBar';
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Catalogo from './components/Catalogo';
-import ItemDetailContainer from "./components/ItemDetailContainer";
-import ItemListContainer from "./components/ItemListContainer";
+import Checkout from './components/CheckOut';
+import ItemDetailContainer from './components/ItemDetailContainer';
+import ItemListContainer from './components/ItemListContainer';
+import NavBar from './components/NavBar';
+
 import sampleImage from './images/Ropa1.jpg';
 import sampleImage2 from './images/Ropa2.jpeg';
 import sampleImage3 from './images/Ropa3.jpeg';
@@ -20,8 +24,38 @@ export function useProducts() {
   return useContext(ProductContext);
 }
 
+const CartContext = createContext();
+
+export const useCart = () => {
+  return useContext(CartContext);
+}
+
 function App() {
-  const [products, setProducts] = useState({ Ropa:[], Zapatos: [], Accesorios: [] });
+  const [products, setProducts] = useState([]); // Inicializa como un array vacío
+  const [cart, setCart] = useState([]);
+
+  const handleCheckout = async (orderData) => {
+    try {
+      const firebaseConfig = {
+        apiKey: "AIzaSyAYOQzY3k2wqZYx1KiJGTAF9c7h9cXWQoQ",
+        authDomain: "ecommerce-melendre.firebaseapp.com",
+        projectId: "ecommerce-melendre",
+        storageBucket: "ecommerce-melendre.appspot.com",
+        messagingSenderId: "533151863828",
+        appId: "1:533151863828:web:d8abb86fd88fef7603c301",
+        measurementId: "G-MKEC9BR9RH"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      const docRef = await addDoc(collection(db, "orders"), orderData);
+
+      console.log("Orden enviada con ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error al enviar la orden: ", error);
+    }
+  };
 
   useEffect(() => {
     const fetchedProducts = [
@@ -34,22 +68,25 @@ function App() {
       { id: 7, name: 'Accesorios 1', description: 'Descripcion de los Zapatos 3', price: '15.99', image: sampleImage7, category: 'Accesorios' },
       { id: 8, name: 'Accesorios 2', description: 'Descripcion de los Accesorios 3', price: '19.99', image: sampleImage8, category: 'Accesorios' },
       { id: 9, name: 'Accesorios 3', description: 'Descripcion de los Accesorios 3', price: '29.99', image: sampleImage9, category: 'Accesorios' },
-    ]
+    ];
     setProducts(fetchedProducts);
   }, []);
-  
+
   return (
     <ProductContext.Provider value={products}>
-      <Router>
-        <div>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<ItemListContainer saludo="¡Bienvenido a nuestra tienda en línea!"/>} /> 
-            <Route path="/category/:categoryId" element={<Catalogo />} />
-            <Route path="/item/:itemId" element={<ItemDetailContainer />} />
-          </Routes>
-        </div>
-      </Router>
+      <CartContext.Provider value={{ cart, setCart }}>
+        <BrowserRouter>
+          <div>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<ItemListContainer saludo="¡Bienvenido a nuestra tienda en línea!" />} />
+              <Route path="/category/:categoryId" element={<Catalogo />} />
+              <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+              <Route path="/checkout" element={<Checkout cart={cart} onCheckout={handleCheckout} />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </CartContext.Provider>
     </ProductContext.Provider>
   );
 }
