@@ -21,10 +21,10 @@ Proyecto en Netlify: [https://spontaneous-quokka-061184.netlify.app/]
 
 
 ## Capturas de Pantalla
-1. **Página de Inicio:** ![Página de Inicio](https://imgur.com/IXn62Je)
-2. **Detalle del Producto:** ![Detalle del Producto](https://imgur.com/DMJggXS)
-3. **Carrito de Compras y Formulario de Compras:** ![Carrito de Compras y Formulario de Compras][https://imgur.com/lN51Qpe]
-5. **Compra Realizada:** ![Compra Realizada][https://imgur.com/ZltWM30]
+1. **Página de Inicio:** [https://imgur.com/IXn62Je]
+2. **Detalle del Producto:** [https://imgur.com/DMJggXS]
+3. **Carrito de Compras y Formulario de Compras:** [https://imgur.com/lN51Qpe]
+5. **Compra Realizada:** [https://imgur.com/ZltWM30]
 
 ## Como lanzar el proyecto
 Sigue estos pasos para ver el proyecto:"
