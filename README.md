@@ -11,11 +11,7 @@ Frank Melendre
 Este proyecto es el resultado final del curso de React JS ofrecido por CoderHouse. Se trata de un Ecommerce construido con React.js e implementa diversas tecnologías y herramientas, incluyendo:
 
 - React.js
-- React Router
-- React Hooks
 - Bootstrap (común y React Bootstrap)
-- React-Icons
-- React-Spinners
 - Firebase
 
 Destaca por la gestion en tiempo real del stock de productos almacenados en Firebase, lo cual se actualiza automaticamente conforme se realizan compras.
@@ -25,10 +21,10 @@ Proyecto en Netlify: [https://spontaneous-quokka-061184.netlify.app/]
 
 
 ## Capturas de Pantalla
-1. **Página de Inicio:** ![Página de Inicio](https://imgur.com/P09eK8e)
-2. **Detalle del Producto:** ![Detalle del Producto](https://imgur.com/z1FJ7ug)
-3. **Carrito de Compras y Formulario de Compras:** ![Carrito de Compras y Formulario de Compras][https://imgur.com/IINWSYS]
-5. **Compra Realizada:** ![Compra Realizada][https://imgur.com/VbLZlxt]
+1. **Página de Inicio:** ![Página de Inicio](https://imgur.com/IXn62Je)
+2. **Detalle del Producto:** ![Detalle del Producto](https://imgur.com/DMJggXS)
+3. **Carrito de Compras y Formulario de Compras:** ![Carrito de Compras y Formulario de Compras][https://imgur.com/lN51Qpe]
+5. **Compra Realizada:** ![Compra Realizada][https://imgur.com/ZltWM30]
 
 ## Como lanzar el proyecto
 Sigue estos pasos para ver el proyecto:"
